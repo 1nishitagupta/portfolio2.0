@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 
-export default function DarkModeTheme() {
+export function DarkModeTheme({ handleThemeToggle }) {
   const [isDarkMode, toggle] = useState(false);
   const properties = {
     sun: {
@@ -36,7 +36,7 @@ export default function DarkModeTheme() {
   const linesProps = useSpring({ opacity, config: properties.springConfig });
 
   return (
-    <div className="App">
+    <div onClick={handleThemeToggle}>
       <animated.svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
