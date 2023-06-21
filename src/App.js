@@ -1,7 +1,33 @@
-import { Box, ThemeProvider, createTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Header } from "./components/layout/header/Header";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Header } from "components";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#705edc",
+    },
+    secondary: {
+      main: "#f57c00",
+    },
+  },
+});
+
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#a850dc",
+    },
+    secondary: {
+      main: "#f57c00",
+    },
+  },
+});
 
 export const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -10,29 +36,10 @@ export const App = () => {
     setIsDarkTheme(!isDarkTheme);
   };
 
-  const theme = createTheme({
-    palette: {
-      mode: isDarkTheme ? "dark" : "light",
-      primary: {
-        main: isDarkTheme ? "#705edc" : "#fff",
-        light: isDarkTheme ? "#705edc" : "#d05ce3",
-        dark: isDarkTheme ? "#4a0072" : "#6a0080",
-      },
-      secondary: {
-        main: isDarkTheme ? "#f57c00" : "#d05ce3",
-        light: isDarkTheme ? "#ffab40" : "#ffc947",
-        dark: isDarkTheme ? "#bb4d00" : "#c66900",
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          backgroundColor: theme.palette.primary.main,
-        }}
-      >
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <CssBaseline />
+      <Box>
         <Routes>
           <Route
             path="/"

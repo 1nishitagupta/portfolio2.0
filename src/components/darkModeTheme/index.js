@@ -36,7 +36,7 @@ export function DarkModeTheme({ handleThemeToggle }) {
   const linesProps = useSpring({ opacity, config: properties.springConfig });
 
   return (
-    <div onClick={handleThemeToggle}>
+    <div>
       <animated.svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -48,7 +48,10 @@ export function DarkModeTheme({ handleThemeToggle }) {
         strokeLinecap="round"
         strokeLinejoin="round"
         style={{ ...svgContainerProps, cursor: "pointer" }}
-        onClick={() => toggle((prev) => !prev)}
+        onClick={() => {
+          toggle((prev) => !prev);
+          handleThemeToggle();
+        }}
       >
         <mask id="mask">
           <rect x="0" y="0" width="100%" height="100%" fill="white" />
