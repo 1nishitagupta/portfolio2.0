@@ -1,9 +1,10 @@
 import { Box } from "@mui/material";
 import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Header } from "components";
+import { Home } from "pages";
 
 const darkTheme = createTheme({
   palette: {
@@ -30,6 +31,7 @@ const lightTheme = createTheme({
 });
 
 export const App = () => {
+  const location = useLocation();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const handleThemeToggle = () => {
@@ -37,14 +39,14 @@ export const App = () => {
   };
 
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+    <ThemeProvider
+      theme={isDarkTheme || location.pathname === "/" ? darkTheme : lightTheme}
+    >
       <CssBaseline />
       <Box>
+        <Header handleThemeToggle={handleThemeToggle} />
         <Routes>
-          <Route
-            path="/"
-            element={<Header handleThemeToggle={handleThemeToggle} />}
-          />
+          <Route path="/" element={<Home />} />
         </Routes>
       </Box>
     </ThemeProvider>

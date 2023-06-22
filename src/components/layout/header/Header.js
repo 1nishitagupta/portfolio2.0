@@ -1,89 +1,101 @@
-import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-
-import logo from "assets/images/logo.png";
+import React from "react";
+import { Box, Typography } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { NavLink, useLocation } from "react-router-dom";
+import logo from "assets/images/logo.png";
 import { navBarLinks, socialMediaLinks } from "utils/constant";
-import { NavLink } from "react-router-dom";
-import { DarkModeTheme, ContainerBox } from "components";
+import { ContainerBox, DarkModeTheme } from "components";
 import Hamburger from "./Hamburger";
 
 export const Header = ({ handleThemeToggle }) => {
+  const location = useLocation();
   const theme = useTheme();
-  const [scroll, setScrollY] = useState();
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => setScrollY(window.scrollY));
-    return () => {
-      window.removeEventListener("scroll", () => setScrollY(window.scrollY));
-    };
-  }, []);
-
+  console.log(location.pathname);
   return (
-    <ContainerBox>
-      <Box
-        sx={{
-          display: { xs: "none", md: "flex" },
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <ul
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          {navBarLinks?.map((item, index) => {
-            return (
-              <NavLink
-                style={{ textTransform: "capitalize" }}
-                to={item?.url}
-                key={index}
-              >
-                {item?.linkName}
+    <Box
+      sx={{
+        position: "fixed",
+        width: "100%",
+        zIndex: "9",
+      }}
+    >
+      <Box>
+        <ContainerBox>
+          <Box
+            sx={{
+              padding: "1rem 0",
+              display: { xs: "none", md: "flex" },
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <ul
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "12px",
+              }}
+            >
+              {navBarLinks?.map((item, index) => {
+                return (
+                  <NavLink
+                    style={({ isActive }) => ({
+                      borderBottom: isActive ? "2px solid" : "inherit",
+                      textTransform: "capitalize",
+                    })}
+                    to={item?.url}
+                    key={index}
+                  >
+                    <Typography
+                      sx={{ paddingBottom: "5px", fontSize: "1.1rem" }}
+                    >
+                      {item?.linkName}
+                    </Typography>
+                  </NavLink>
+                );
+              })}
+            </ul>
+            <Box style={{ height: "70px" }}>
+              <NavLink to="/">
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{
+                    filter: theme.palette.mode === "dark" ? "invert(100%)" : "",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
               </NavLink>
-            );
-          })}
-        </ul>
-        <Box style={{ height: "70px" }}>
-          {theme.palette.mode === "dark" ? (
-            <img
-              src={logo}
-              alt="logo"
-              style={{ filter: "invert(100%)", width: "100%", height: "100%" }}
-            />
-          ) : (
-            <img
-              style={{ width: "100%", height: "100%" }}
-              src={logo}
-              alt="logo"
-            />
-          )}
-        </Box>
-        <ul
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          {socialMediaLinks?.map((item, index) => {
-            return (
-              <NavLink to={item?.url} key={index}>
-                {item?.linkImage}
-              </NavLink>
-            );
-          })}
-          <DarkModeTheme handleThemeToggle={handleThemeToggle} />
-        </ul>
+            </Box>
+            <ul
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              {socialMediaLinks?.map((item, index) => {
+                return (
+                  <NavLink to={item?.url} key={index}>
+                    {item?.linkImage}
+                  </NavLink>
+                );
+              })}
+              {location.pathname === "/" ? (
+                ""
+              ) : (
+                <DarkModeTheme handleThemeToggle={handleThemeToggle} />
+              )}
+            </ul>
+          </Box>
+        </ContainerBox>
       </Box>
       <Box sx={{ display: { xs: "block", md: "none" } }}>
-        <Hamburger />
+        <Hamburger handleThemeToggle={handleThemeToggle} />
       </Box>
-    </ContainerBox>
+    </Box>
   );
 };
