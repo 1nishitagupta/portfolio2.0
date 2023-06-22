@@ -4,9 +4,12 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Header } from "components";
-import { Home } from "pages";
+import { About, Home } from "pages";
 
 const darkTheme = createTheme({
+  typography: {
+    fontFamily: ["Signika Negative"].join(","),
+  },
   palette: {
     mode: "dark",
     primary: {
@@ -19,6 +22,9 @@ const darkTheme = createTheme({
 });
 
 const lightTheme = createTheme({
+  typography: {
+    fontFamily: ["Signika Negative"].join(","),
+  },
   palette: {
     mode: "light",
     primary: {
@@ -37,6 +43,11 @@ export const App = () => {
   const handleThemeToggle = () => {
     setIsDarkTheme(!isDarkTheme);
   };
+  // const theme = createTheme({
+  //   typography: {
+  //     fontFamily: ["oswald"].join(","),
+  //   },
+  // });
 
   return (
     <ThemeProvider
@@ -45,9 +56,16 @@ export const App = () => {
       <CssBaseline />
       <Box>
         <Header handleThemeToggle={handleThemeToggle} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
+        <Box
+          sx={{
+            paddingTop: location.pathname === "/" ? "0" : "100px",
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </Box>
       </Box>
     </ThemeProvider>
   );

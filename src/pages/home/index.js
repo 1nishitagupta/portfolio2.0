@@ -11,7 +11,7 @@ export const Home = () => {
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "scroll",
         backgroundSize: "cover",
-        height: "100vh",
+        height: "100svh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
