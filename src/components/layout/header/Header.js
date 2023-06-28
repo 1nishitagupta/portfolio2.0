@@ -11,6 +11,7 @@ export const Header = ({ handleThemeToggle }) => {
   const location = useLocation();
   const theme = useTheme();
   console.log(location.pathname);
+
   return (
     <Box
       sx={{

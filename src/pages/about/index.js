@@ -16,6 +16,7 @@ export const About = () => {
         <Typography sx={{ fontSize: "3rem" }}>
           Code , Design , Draw and Explore
         </Typography>
+        <Typography>Lorem ipsum</Typography>
       </Box>
     </ContainerBox>
   );

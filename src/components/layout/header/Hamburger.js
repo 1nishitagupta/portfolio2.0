@@ -14,6 +14,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { navBarLinks } from "utils/constant";
 import logo from "assets/images/logo.png";
 import { useTheme } from "@emotion/react";
+import { DarkModeTheme } from "components/darkModeTheme";
 
 export default function Hamburger({ handleThemeToggle }) {
   const theme = useTheme();
@@ -122,6 +123,7 @@ export default function Hamburger({ handleThemeToggle }) {
             }}
           />
         </NavLink>
+        <DarkModeTheme handleThemeToggle={handleThemeToggle} />
       </Box>
     </Box>
   );

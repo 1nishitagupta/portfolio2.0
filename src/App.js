@@ -43,11 +43,6 @@ export const App = () => {
   const handleThemeToggle = () => {
     setIsDarkTheme(!isDarkTheme);
   };
-  // const theme = createTheme({
-  //   typography: {
-  //     fontFamily: ["oswald"].join(","),
-  //   },
-  // });
 
   return (
     <ThemeProvider
